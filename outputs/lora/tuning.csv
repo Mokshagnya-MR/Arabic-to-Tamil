@@ -1,0 +1,5 @@
+learning_rate,r,dev_chrf++,checkpoint
+0.0001,16,46.15,C:\Users\Moksh\Desktop\A-T\outputs\lora\tune\lr0.0001_r16\checkpoint-625
+0.0001,32,46.12,C:\Users\Moksh\Desktop\A-T\outputs\lora\tune\lr0.0001_r32\checkpoint-625
+0.0003,16,45.93,C:\Users\Moksh\Desktop\A-T\outputs\lora\tune\lr0.0003_r16\checkpoint-625
+0.0003,32,45.94,C:\Users\Moksh\Desktop\A-T\outputs\lora\tune\lr0.0003_r32\checkpoint-625

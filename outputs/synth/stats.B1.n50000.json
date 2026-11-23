@@ -1,0 +1,38 @@
+{
+  "route": "B1",
+  "n_per_direction": 50000,
+  "pre": {
+    "arb_Arab": {
+      "seen": 637898,
+      "skip_per_doc_cap": 2284353,
+      "drop_no_final_punct": 399846,
+      "drop_script": 5024,
+      "drop_length": 6188,
+      "drop_duplicate": 5773,
+      "drop_flores_overlap": 2,
+      "docs": 60000,
+      "candidates": 221065,
+      "sampled": 50000
+    },
+    "tam_Taml": {
+      "seen": 550821,
+      "drop_no_final_punct": 244657,
+      "skip_per_doc_cap": 1446643,
+      "drop_length": 29125,
+      "drop_script": 11066,
+      "drop_duplicate": 20344,
+      "docs": 60000,
+      "candidates": 245629,
+      "sampled": 50000
+    }
+  },
+  "post": {
+    "drop_length": 302,
+    "drop_ratio": 151,
+    "drop_script": 3102,
+    "drop_duplicate": 123,
+    "kept": 96322,
+    "kept_arb_mono": 49755,
+    "kept_tam_mono": 46567
+  }
+}

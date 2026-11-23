@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+*.tmp
+# large / regenerable
+outputs/lora/**/checkpoint-*/optimizer.pt
+outputs/lora/**/checkpoint-*/scheduler.pt
+outputs/logs/

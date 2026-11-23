@@ -1,0 +1,5 @@
+{
+  "corpus": "corpus.B1.n50000.jsonl",
+  "route": "B1",
+  "n_per_direction": 50000
+}

@@ -1,0 +1,18 @@
+{
+  "first_tag": "synth.B1.fwd.c2.hop1",
+  "model": "nllb",
+  "hf_id": "facebook/nllb-200-distilled-600M",
+  "revision": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+  "adapter": null,
+  "src": "arb_Arab",
+  "tgt": "eng_Latn",
+  "generation": {
+    "beam_size": 4,
+    "max_input_tokens": 256,
+    "max_new_tokens": 256,
+    "batch_size": 16
+  },
+  "device": "cuda",
+  "dtype": "torch.float16",
+  "n": 5000
+}

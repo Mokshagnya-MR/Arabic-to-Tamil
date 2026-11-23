@@ -1,0 +1,95 @@
+[
+  {
+    "loss": 1.8264,
+    "grad_norm": 0.5182992815971375,
+    "learning_rate": 9.504950495049505e-05,
+    "epoch": 0.08,
+    "step": 50
+  },
+  {
+    "loss": 1.5832,
+    "grad_norm": 0.4492335319519043,
+    "learning_rate": 8.67986798679868e-05,
+    "epoch": 0.16,
+    "step": 100
+  },
+  {
+    "loss": 1.5407,
+    "grad_norm": 0.4600350260734558,
+    "learning_rate": 7.854785478547854e-05,
+    "epoch": 0.24,
+    "step": 150
+  },
+  {
+    "loss": 1.5277,
+    "grad_norm": 0.49802684783935547,
+    "learning_rate": 7.02970297029703e-05,
+    "epoch": 0.32,
+    "step": 200
+  },
+  {
+    "loss": 1.4639,
+    "grad_norm": 0.49584996700286865,
+    "learning_rate": 6.204620462046205e-05,
+    "epoch": 0.4,
+    "step": 250
+  },
+  {
+    "loss": 1.5025,
+    "grad_norm": 0.5933911800384521,
+    "learning_rate": 5.3795379537953795e-05,
+    "epoch": 0.48,
+    "step": 300
+  },
+  {
+    "loss": 1.5046,
+    "grad_norm": 0.5595424771308899,
+    "learning_rate": 4.554455445544555e-05,
+    "epoch": 0.56,
+    "step": 350
+  },
+  {
+    "loss": 1.4746,
+    "grad_norm": 0.6162506341934204,
+    "learning_rate": 3.7293729372937295e-05,
+    "epoch": 0.64,
+    "step": 400
+  },
+  {
+    "loss": 1.4704,
+    "grad_norm": 0.7273370027542114,
+    "learning_rate": 2.9042904290429045e-05,
+    "epoch": 0.72,
+    "step": 450
+  },
+  {
+    "loss": 1.4574,
+    "grad_norm": 0.5538926720619202,
+    "learning_rate": 2.079207920792079e-05,
+    "epoch": 0.8,
+    "step": 500
+  },
+  {
+    "loss": 1.4853,
+    "grad_norm": 0.6470018029212952,
+    "learning_rate": 1.254125412541254e-05,
+    "epoch": 0.88,
+    "step": 550
+  },
+  {
+    "loss": 1.4696,
+    "grad_norm": 0.5879116654396057,
+    "learning_rate": 4.29042904290429e-06,
+    "epoch": 0.96,
+    "step": 600
+  },
+  {
+    "train_runtime": 2202.9567,
+    "train_samples_per_second": 9.079,
+    "train_steps_per_second": 0.284,
+    "total_flos": 1786854142771200.0,
+    "train_loss": 1.5230114379882813,
+    "epoch": 1.0,
+    "step": 625
+  }
+]

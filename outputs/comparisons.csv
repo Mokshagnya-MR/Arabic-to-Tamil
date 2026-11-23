@@ -1,0 +1,23 @@
+comparison,metric,a,b,score_a,score_b,delta,ci_low,ci_high,p_value,threshold,verdict
+H1,chrf++,direct.nllb.eng,direct.nllb.arb,50.76,43.38,7.39,6.68,8.09,0.0,3.0,PASS
+H1,bleu,direct.nllb.eng,direct.nllb.arb,32.33,22.93,9.4,8.04,10.5,0.0,,
+H2,chrf++,pivot.B1,direct.nllb.arb,48.67,43.38,5.29,4.71,5.89,0.0,2.0,PASS
+H2,bleu,pivot.B1,direct.nllb.arb,29.47,22.93,6.54,5.42,7.73,0.0,,
+pivot.B1 vs pivot.B2,chrf++,pivot.B1,pivot.B2,48.67,41.47,7.19,6.63,7.73,0.0,,
+pivot.B1 vs pivot.B2,bleu,pivot.B1,pivot.B2,29.47,22.16,7.31,6.64,8.23,0.0,,
+pivot.B1 vs control.B1_allnllb,chrf++,pivot.B1,control.B1_allnllb,48.67,44.8,3.86,3.39,4.35,0.0,,
+pivot.B1 vs control.B1_allnllb,bleu,pivot.B1,control.B1_allnllb,29.47,25.06,4.41,3.85,5.0,0.0,,
+control.B1_allnllb vs direct.nllb.arb,chrf++,control.B1_allnllb,direct.nllb.arb,44.8,43.38,1.42,0.87,2.01,0.0,,
+control.B1_allnllb vs direct.nllb.arb,bleu,control.B1_allnllb,direct.nllb.arb,25.06,22.93,2.13,1.1,3.28,0.0,,
+control.it2_humaneng vs pivot.B1,chrf++,control.it2_humaneng,pivot.B1,56.73,48.67,8.06,7.51,8.6,0.0,,
+control.it2_humaneng vs pivot.B1,bleu,control.it2_humaneng,pivot.B1,39.36,29.47,9.89,9.18,10.66,0.0,,
+direct.nllb.arb_nodiac vs direct.nllb.arb,chrf++,direct.nllb.arb_nodiac,direct.nllb.arb,43.49,43.38,0.11,-0.21,0.43,0.474,,
+direct.nllb.arb_nodiac vs direct.nllb.arb,bleu,direct.nllb.arb_nodiac,direct.nllb.arb,23.32,22.93,0.39,-0.46,1.3,0.42,,
+direct.m2m100.arb vs direct.nllb.arb,chrf++,direct.m2m100.arb,direct.nllb.arb,11.53,43.38,-31.85,-32.72,-30.96,0.0,,
+direct.m2m100.arb vs direct.nllb.arb,bleu,direct.m2m100.arb,direct.nllb.arb,1.23,22.93,-21.69,-22.81,-20.39,0.0,,
+lora.arb vs direct.nllb.arb,chrf++,lora.arb,direct.nllb.arb,45.74,43.38,2.36,1.88,2.86,0.0,,
+lora.arb vs direct.nllb.arb,bleu,lora.arb,direct.nllb.arb,25.31,22.93,2.38,1.4,3.36,0.0,,
+lora.arb vs pivot.B1,chrf++,lora.arb,pivot.B1,45.74,48.67,-2.93,-3.39,-2.45,0.0,,
+lora.arb vs pivot.B1,bleu,lora.arb,pivot.B1,25.31,29.47,-4.16,-4.82,-3.54,0.0,,
+lora.tam2arb vs direct.nllb.tam2arb,chrf++,lora.tam2arb,direct.nllb.tam2arb,38.97,37.92,1.05,0.6,1.48,0.0,,
+lora.tam2arb vs direct.nllb.tam2arb,bleu,lora.tam2arb,direct.nllb.tam2arb,22.35,21.46,0.89,0.45,1.68,0.0,,

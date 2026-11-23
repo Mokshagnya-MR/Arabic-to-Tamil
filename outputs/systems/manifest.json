@@ -1,0 +1,151 @@
+{
+  "direct.nllb.arb": {
+    "kind": "direct",
+    "model": "nllb",
+    "source": "arb",
+    "src_lang": "arb_Arab",
+    "tgt_lang": "tam_Taml",
+    "route": "arb_Arab->tam_Taml",
+    "splits": {
+      "devtest": "direct.nllb.arb.devtest.jsonl"
+    }
+  },
+  "direct.nllb.arb_nodiac": {
+    "kind": "direct",
+    "model": "nllb",
+    "source": "arb_nodiac",
+    "src_lang": "arb_Arab",
+    "tgt_lang": "tam_Taml",
+    "route": "arb_Arab->tam_Taml",
+    "splits": {
+      "devtest": "direct.nllb.arb_nodiac.devtest.jsonl"
+    }
+  },
+  "direct.nllb.eng": {
+    "kind": "direct",
+    "model": "nllb",
+    "source": "eng",
+    "src_lang": "eng_Latn",
+    "tgt_lang": "tam_Taml",
+    "route": "eng_Latn->tam_Taml",
+    "splits": {
+      "devtest": "direct.nllb.eng.devtest.jsonl"
+    }
+  },
+  "direct.m2m100.arb": {
+    "kind": "direct",
+    "model": "m2m100",
+    "source": "arb",
+    "src_lang": "arb_Arab",
+    "tgt_lang": "tam_Taml",
+    "route": "arb_Arab->tam_Taml",
+    "splits": {
+      "devtest": "direct.m2m100.arb.devtest.jsonl"
+    }
+  },
+  "direct.m2m100.arb_nodiac": {
+    "kind": "direct",
+    "model": "m2m100",
+    "source": "arb_nodiac",
+    "src_lang": "arb_Arab",
+    "tgt_lang": "tam_Taml",
+    "route": "arb_Arab->tam_Taml",
+    "splits": {
+      "devtest": "direct.m2m100.arb_nodiac.devtest.jsonl"
+    }
+  },
+  "direct.m2m100.eng": {
+    "kind": "direct",
+    "model": "m2m100",
+    "source": "eng",
+    "src_lang": "eng_Latn",
+    "tgt_lang": "tam_Taml",
+    "route": "eng_Latn->tam_Taml",
+    "splits": {
+      "devtest": "direct.m2m100.eng.devtest.jsonl"
+    }
+  },
+  "pivot.B1": {
+    "kind": "pivot",
+    "source": "arb",
+    "src_lang": "arb_Arab",
+    "tgt_lang": "tam_Taml",
+    "route": "arb_Arab -> eng_Latn (nllb) -> tam_Taml (it2_en_indic)",
+    "model": "nllb+it2_en_indic",
+    "splits": {
+      "dev": "pivot.B1.dev.jsonl",
+      "devtest": "pivot.B1.devtest.jsonl"
+    }
+  },
+  "pivot.B2": {
+    "kind": "pivot",
+    "source": "arb",
+    "src_lang": "arb_Arab",
+    "tgt_lang": "tam_Taml",
+    "route": "arb_Arab -> mal_Mlym (nllb) -> tam_Taml (it2_indic_indic)",
+    "model": "nllb+it2_indic_indic",
+    "splits": {
+      "dev": "pivot.B2.dev.jsonl",
+      "devtest": "pivot.B2.devtest.jsonl"
+    }
+  },
+  "control.B1_allnllb": {
+    "kind": "control",
+    "source": "arb",
+    "src_lang": "arb_Arab",
+    "tgt_lang": "tam_Taml",
+    "route": "arb_Arab -> eng_Latn (nllb) -> tam_Taml (nllb)",
+    "model": "nllb+nllb",
+    "splits": {
+      "dev": "control.B1_allnllb.dev.jsonl",
+      "devtest": "control.B1_allnllb.devtest.jsonl"
+    }
+  },
+  "control.it2_humaneng": {
+    "kind": "control",
+    "source": "eng",
+    "src_lang": "eng_Latn",
+    "tgt_lang": "tam_Taml",
+    "route": "eng_Latn -> tam_Taml (it2_en_indic)",
+    "model": "it2_en_indic",
+    "splits": {
+      "dev": "control.it2_humaneng.dev.jsonl",
+      "devtest": "control.it2_humaneng.devtest.jsonl"
+    }
+  },
+  "lora.arb": {
+    "kind": "lora",
+    "model": "nllb+lora",
+    "source": "arb",
+    "src_lang": "arb_Arab",
+    "tgt_lang": "tam_Taml",
+    "route": "arb_Arab->tam_Taml (LoRA)",
+    "adapter": "C:\\Users\\Moksh\\Desktop\\A-T\\outputs\\lora\\final_lr0.0001_r16\\checkpoint-12040",
+    "splits": {
+      "devtest": "lora.arb.devtest.jsonl"
+    }
+  },
+  "lora.tam2arb": {
+    "kind": "lora",
+    "model": "nllb+lora",
+    "source": "tam",
+    "src_lang": "tam_Taml",
+    "tgt_lang": "arb_Arab",
+    "route": "tam_Taml->arb_Arab (LoRA)",
+    "adapter": "C:\\Users\\Moksh\\Desktop\\A-T\\outputs\\lora\\final_lr0.0001_r16\\checkpoint-12040",
+    "splits": {
+      "devtest": "lora.tam2arb.devtest.jsonl"
+    }
+  },
+  "direct.nllb.tam2arb": {
+    "kind": "direct",
+    "model": "nllb",
+    "source": "tam",
+    "src_lang": "tam_Taml",
+    "tgt_lang": "arb_Arab",
+    "route": "tam_Taml->arb_Arab",
+    "splits": {
+      "devtest": "direct.nllb.tam2arb.devtest.jsonl"
+    }
+  }
+}

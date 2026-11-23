@@ -1,0 +1,27 @@
+system,kind,model,source,route,src_lang,tgt_lang,split,metric,score,ci_low,ci_high,n_boot
+direct.nllb.arb,direct,nllb,arb,arb_Arab->tam_Taml,arb_Arab,tam_Taml,devtest,chrf++,43.38,42.57,44.13,1000
+direct.nllb.arb,direct,nllb,arb,arb_Arab->tam_Taml,arb_Arab,tam_Taml,devtest,bleu,22.93,21.68,24.03,1000
+direct.nllb.arb_nodiac,direct,nllb,arb_nodiac,arb_Arab->tam_Taml,arb_Arab,tam_Taml,devtest,chrf++,43.49,42.72,44.21,1000
+direct.nllb.arb_nodiac,direct,nllb,arb_nodiac,arb_Arab->tam_Taml,arb_Arab,tam_Taml,devtest,bleu,23.32,22.12,24.39,1000
+direct.nllb.eng,direct,nllb,eng,eng_Latn->tam_Taml,eng_Latn,tam_Taml,devtest,chrf++,50.76,49.87,51.62,1000
+direct.nllb.eng,direct,nllb,eng,eng_Latn->tam_Taml,eng_Latn,tam_Taml,devtest,bleu,32.33,30.92,33.31,1000
+direct.m2m100.arb,direct,m2m100,arb,arb_Arab->tam_Taml,arb_Arab,tam_Taml,devtest,chrf++,11.53,11.02,11.99,1000
+direct.m2m100.arb,direct,m2m100,arb,arb_Arab->tam_Taml,arb_Arab,tam_Taml,devtest,bleu,1.23,0.99,1.49,1000
+direct.m2m100.arb_nodiac,direct,m2m100,arb_nodiac,arb_Arab->tam_Taml,arb_Arab,tam_Taml,devtest,chrf++,11.91,11.37,12.42,1000
+direct.m2m100.arb_nodiac,direct,m2m100,arb_nodiac,arb_Arab->tam_Taml,arb_Arab,tam_Taml,devtest,bleu,1.38,1.11,1.65,1000
+direct.m2m100.eng,direct,m2m100,eng,eng_Latn->tam_Taml,eng_Latn,tam_Taml,devtest,chrf++,16.98,16.11,17.86,1000
+direct.m2m100.eng,direct,m2m100,eng,eng_Latn->tam_Taml,eng_Latn,tam_Taml,devtest,bleu,4.04,3.58,4.52,1000
+pivot.B1,pivot,nllb+it2_en_indic,arb,arb_Arab -> eng_Latn (nllb) -> tam_Taml (it2_en_indic),arb_Arab,tam_Taml,devtest,chrf++,48.67,47.88,49.39,1000
+pivot.B1,pivot,nllb+it2_en_indic,arb,arb_Arab -> eng_Latn (nllb) -> tam_Taml (it2_en_indic),arb_Arab,tam_Taml,devtest,bleu,29.47,28.44,30.42,1000
+pivot.B2,pivot,nllb+it2_indic_indic,arb,arb_Arab -> mal_Mlym (nllb) -> tam_Taml (it2_indic_indic),arb_Arab,tam_Taml,devtest,chrf++,41.47,40.7,42.17,1000
+pivot.B2,pivot,nllb+it2_indic_indic,arb,arb_Arab -> mal_Mlym (nllb) -> tam_Taml (it2_indic_indic),arb_Arab,tam_Taml,devtest,bleu,22.16,21.04,22.93,1000
+control.B1_allnllb,control,nllb+nllb,arb,arb_Arab -> eng_Latn (nllb) -> tam_Taml (nllb),arb_Arab,tam_Taml,devtest,chrf++,44.8,43.99,45.52,1000
+control.B1_allnllb,control,nllb+nllb,arb,arb_Arab -> eng_Latn (nllb) -> tam_Taml (nllb),arb_Arab,tam_Taml,devtest,bleu,25.06,24.08,25.98,1000
+control.it2_humaneng,control,it2_en_indic,eng,eng_Latn -> tam_Taml (it2_en_indic),eng_Latn,tam_Taml,devtest,chrf++,56.73,55.79,57.61,1000
+control.it2_humaneng,control,it2_en_indic,eng,eng_Latn -> tam_Taml (it2_en_indic),eng_Latn,tam_Taml,devtest,bleu,39.36,38.11,40.57,1000
+lora.arb,lora,nllb+lora,arb,arb_Arab->tam_Taml (LoRA),arb_Arab,tam_Taml,devtest,chrf++,45.74,45.01,46.4,1000
+lora.arb,lora,nllb+lora,arb,arb_Arab->tam_Taml (LoRA),arb_Arab,tam_Taml,devtest,bleu,25.31,24.31,26.18,1000
+lora.tam2arb,lora,nllb+lora,tam,tam_Taml->arb_Arab (LoRA),tam_Taml,arb_Arab,devtest,chrf++,38.97,38.23,39.7,1000
+lora.tam2arb,lora,nllb+lora,tam,tam_Taml->arb_Arab (LoRA),tam_Taml,arb_Arab,devtest,bleu,22.35,21.51,23.18,1000
+direct.nllb.tam2arb,direct,nllb,tam,tam_Taml->arb_Arab,tam_Taml,arb_Arab,devtest,chrf++,37.92,37.18,38.66,1000
+direct.nllb.tam2arb,direct,nllb,tam,tam_Taml->arb_Arab,tam_Taml,arb_Arab,devtest,bleu,21.46,20.5,22.27,1000

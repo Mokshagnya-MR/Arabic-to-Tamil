@@ -1,0 +1,157 @@
+# Arabic -> Tamil MT experiments (H1/H2, gaps G1-G7).
+# Every run reads this file. Override with:  a2t --config configs/other.yaml <step>
+
+seed: 1234
+device: auto            # auto | cuda | mps | cpu   (auto: cuda > mps > cpu)
+dtype: auto             # auto | float16 | bfloat16 | float32   (inference; auto = fp16 on cuda, fp32 elsewhere)
+outputs: outputs
+max_vram_fraction: 0.85 # cap PyTorch below VRAM: on Windows, overflowing pages to RAM (~25x slower) instead of raising OOM
+
+flores:
+  repo_id: openlanguagedata/flores_plus   # gated: accept terms on HF + `hf auth login`
+  revision: 1147e2dc59f37fbb5c22fd8478770de02cd399f9
+  dev_split: dev          # 997 sentences; used for ALL tuning / selection
+  test_split: devtest     # 1012 sentences; reporting only
+  expected_sizes: {dev: 997, devtest: 1012}
+
+generation:
+  beam_size: 4
+  max_input_tokens: 256
+  max_new_tokens: 256
+  batch_size: 16          # sentences per batch (default); halved automatically on CUDA OOM
+
+# Model registry. `family` selects pre/post-processing and language-code mapping.
+# `revision` pins the HF commit (null = latest; the resolved SHA is still recorded per cache file).
+models:
+  nllb:
+    hf_id: facebook/nllb-200-distilled-600M
+    family: nllb
+    revision: f8d333a098d19b4fd9a8b18f94170487ad3f821d
+    batch_size: 16    # RTX 4060 8GB: 11.5 sent/s, 3.7 GB peak (32 hits the cap)
+  m2m100:
+    hf_id: facebook/m2m100_418M
+    family: m2m100
+    revision: 55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636
+    batch_size: 16
+  it2_en_indic:
+    hf_id: ai4bharat/indictrans2-en-indic-dist-200M     # gated (auto-approve)
+    family: indictrans2
+    revision: 2cfd0a20057756d756bf3e53528f492afc52f91a
+    batch_size: 48
+  it2_indic_indic:
+    hf_id: ai4bharat/indictrans2-indic-indic-dist-320M  # gated (auto-approve)
+    family: indictrans2
+    revision: ffb7582b6d43791f1fb26b2153fc065f2e9ea575
+    batch_size: 48
+  it2_indic_en:
+    hf_id: ai4bharat/indictrans2-indic-en-dist-200M     # gated; only needed for Step 3 reverse of B1
+    family: indictrans2
+    revision: d66a2122ad6d28184f3dc3797b652bd80ae3f65f
+    batch_size: 48
+
+# FLORES code -> family-specific code. NLLB and IndicTrans2 use FLORES codes directly.
+lang_codes:
+  m2m100: {arb_Arab: ar, tam_Taml: ta, eng_Latn: en, mal_Mlym: ml}
+
+# Source variants. `lang` is the FLORES file to read; `transform` is applied before translation.
+sources:
+  arb:        {lang: arb_Arab, transform: null}
+  arb_nodiac: {lang: arb_Arab, transform: strip_diacritics}   # removes U+064B-U+0652, U+0670, U+0640
+  eng:        {lang: eng_Latn, transform: null}               # control
+  tam:        {lang: tam_Taml, transform: null}               # Step 4 reverse direction (tam->arb)
+
+# ---- Step 1: direct baselines (G1, G2, G4) --------------------------------------
+step1:
+  models: [nllb, m2m100]
+  sources: [arb, arb_nodiac, eng]
+  target: tam_Taml
+
+# ---- Step 2: pivot routes (G3) ----------------------------------------------------
+# A route is a list of hops; hop 1 reads the named source, later hops read the previous output.
+step2:
+  target: tam_Taml
+  source: arb
+  routes:
+    B1:      [{model: nllb, src: arb_Arab, tgt: eng_Latn}, {model: it2_en_indic,    src: eng_Latn, tgt: tam_Taml}]
+    B2:      [{model: nllb, src: arb_Arab, tgt: mal_Mlym}, {model: it2_indic_indic, src: mal_Mlym, tgt: tam_Taml}]
+  # Controls (not part of H2; they separate "pivoting" from "IndicTrans2 writes the Tamil").
+  controls:
+    B1_allnllb: {source: arb, hops: [{model: nllb, src: arb_Arab, tgt: eng_Latn}, {model: nllb, src: eng_Latn, tgt: tam_Taml}]}
+    it2_humaneng: {source: eng, hops: [{model: it2_en_indic, src: eng_Latn, tgt: tam_Taml}]}   # B1 upper bound
+  select_on: dev          # which split decides the Step-3 route (devtest is never used for selection)
+
+# ---- Step 3: synthetic corpus ----------------------------------------------------
+step3:
+  n_per_direction: 50000
+  pilot_n: 5000           # `a2t step3 --pilot`
+  route: auto             # auto = best of step2.routes on `step2.select_on`; or B1 / B2
+  # Reverse routes (Tamil mono -> Arabic) matching each forward route.
+  reverse_routes:
+    B1: [{model: it2_indic_en,    src: tam_Taml, tgt: eng_Latn}, {model: nllb, src: eng_Latn, tgt: arb_Arab}]
+    B2: [{model: it2_indic_indic, src: tam_Taml, tgt: mal_Mlym}, {model: nllb, src: mal_Mlym, tgt: arb_Arab}]
+  mono:
+    repo_id: wikimedia/wikipedia          # CC BY-SA 3.0 / GFDL, not gated
+    arb_Arab: {subset: 20231101.ar, max_files: 1}   # first parquet shard (~0.4 GB)
+    tam_Taml: {subset: 20231101.ta, max_files: 2}   # whole subset (~0.27 GB)
+    max_docs: 60000                                  # articles read per language (in shard order) before sampling
+    max_sents_per_doc: 5                             # limits templated stub articles dominating
+  filter:
+    min_tokens: 3
+    max_tokens: 200
+    max_len_ratio: 3.0
+    min_script_ratio: 0.8      # share of letters in the expected script
+    overlap_ngram: 8           # drop if any word 8-gram is shared with FLORES dev/devtest
+    flores_overlap_langs: [arb_Arab, tam_Taml]
+
+# ---- Step 4: LoRA on frozen NLLB (G6) ---------------------------------------------
+step4:
+  base_model: nllb
+  directions: [[arb_Arab, tam_Taml], [tam_Taml, arb_Arab]]
+  lora:
+    r: 16
+    alpha: 32
+    dropout: 0.1
+    target_modules: [q_proj, k_proj, v_proj, out_proj, fc1, fc2]
+  train:
+    epochs: 2
+    learning_rate: 3.0e-4
+    per_device_batch_size: 8     # x grad_accum 4 = 32; 16 OOMs on the 256k-vocab logits (2 GB fp32 at len 128)
+    grad_accum: 4
+    warmup_ratio: 0.03
+    weight_decay: 0.0
+    max_length: 128
+    bf16: true
+    gradient_checkpointing: true
+    save_steps: 500              # resumable checkpoint every ~10 min (newest kept); epoch-end ones always kept
+  tune:                      # tuned on FLORES dev only
+    grid: {learning_rate: [1.0e-4, 3.0e-4], r: [16, 32]}
+    max_examples: 20000
+    epochs: 1
+
+# ---- Step 5: prompted LLM baseline (G7) - stub, disabled ---------------------------
+step5:
+  enabled: false
+  provider: null
+  model: null
+
+# ---- Evaluation -----------------------------------------------------------------
+evaluation:
+  chrf_word_order: 2         # chrF++  (PRIMARY)
+  bleu_tokenize: flores200   # spBLEU
+  bootstrap_samples: 1000
+  ci: 0.95
+  # delta = score(a) - score(b). Verdict: PASS if CI low >= threshold,
+  # INCONCLUSIVE if point >= threshold > CI low, FAIL if point < threshold.
+  hypotheses:
+    H1: {a: direct.nllb.eng, b: direct.nllb.arb, threshold: 3.0, metric: chrf++}
+    H2: {a: pivot.B1,        b: direct.nllb.arb, threshold: 2.0, metric: chrf++}
+  comparisons:
+    - [pivot.B1, pivot.B2]
+    - [pivot.B1, control.B1_allnllb]       # gain from IndicTrans2 writing the Tamil
+    - [control.B1_allnllb, direct.nllb.arb] # gain from pivoting alone (same model both hops)
+    - [control.it2_humaneng, pivot.B1]
+    - [direct.nllb.arb_nodiac, direct.nllb.arb]
+    - [direct.m2m100.arb, direct.nllb.arb]
+    - [lora.arb, direct.nllb.arb]
+    - [lora.arb, pivot.@selected]          # @selected = route chosen for Step 3
+    - [lora.tam2arb, direct.nllb.tam2arb]  # reverse direction (Arabic references)

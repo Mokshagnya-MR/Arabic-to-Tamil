@@ -1,0 +1,18 @@
+{
+  "first_tag": "direct.arb_nodiac.devtest",
+  "model": "m2m100",
+  "hf_id": "facebook/m2m100_418M",
+  "revision": "55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636",
+  "adapter": null,
+  "src": "arb_Arab",
+  "tgt": "tam_Taml",
+  "generation": {
+    "beam_size": 4,
+    "max_input_tokens": 256,
+    "max_new_tokens": 256,
+    "batch_size": 16
+  },
+  "device": "cuda",
+  "dtype": "torch.float16",
+  "n": 1012
+}

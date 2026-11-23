@@ -1,0 +1,36 @@
+{
+  "corpus": "corpus.B1.n50000.jsonl",
+  "learning_rate": 0.0001,
+  "r": 16,
+  "tuning": [
+    {
+      "learning_rate": 0.0001,
+      "r": 16,
+      "dev_chrf++": 46.15,
+      "checkpoint": "C:\\Users\\Moksh\\Desktop\\A-T\\outputs\\lora\\tune\\lr0.0001_r16\\checkpoint-625"
+    },
+    {
+      "learning_rate": 0.0001,
+      "r": 32,
+      "dev_chrf++": 46.12,
+      "checkpoint": "C:\\Users\\Moksh\\Desktop\\A-T\\outputs\\lora\\tune\\lr0.0001_r32\\checkpoint-625"
+    },
+    {
+      "learning_rate": 0.0003,
+      "r": 16,
+      "dev_chrf++": 45.93,
+      "checkpoint": "C:\\Users\\Moksh\\Desktop\\A-T\\outputs\\lora\\tune\\lr0.0003_r16\\checkpoint-625"
+    },
+    {
+      "learning_rate": 0.0003,
+      "r": 32,
+      "dev_chrf++": 45.94,
+      "checkpoint": "C:\\Users\\Moksh\\Desktop\\A-T\\outputs\\lora\\tune\\lr0.0003_r32\\checkpoint-625"
+    }
+  ],
+  "checkpoint_dev_chrf++": {
+    "C:\\Users\\Moksh\\Desktop\\A-T\\outputs\\lora\\final_lr0.0001_r16\\checkpoint-6021": 46.03702968392323,
+    "C:\\Users\\Moksh\\Desktop\\A-T\\outputs\\lora\\final_lr0.0001_r16\\checkpoint-12040": 46.17219469125782
+  },
+  "selected_checkpoint": "C:\\Users\\Moksh\\Desktop\\A-T\\outputs\\lora\\final_lr0.0001_r16\\checkpoint-12040"
+}

@@ -1,0 +1,18 @@
+{
+  "first_tag": "control.it2_humaneng.dev.hop1",
+  "model": "it2_en_indic",
+  "hf_id": "ai4bharat/indictrans2-en-indic-dist-200M",
+  "revision": "2cfd0a20057756d756bf3e53528f492afc52f91a",
+  "adapter": null,
+  "src": "eng_Latn",
+  "tgt": "tam_Taml",
+  "generation": {
+    "beam_size": 4,
+    "max_input_tokens": 256,
+    "max_new_tokens": 256,
+    "batch_size": 16
+  },
+  "device": "cuda",
+  "dtype": "torch.float16",
+  "n": 997
+}

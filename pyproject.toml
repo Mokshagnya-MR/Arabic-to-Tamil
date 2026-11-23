@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "a2t"
+version = "0.1.0"
+description = "Arabic-to-Tamil MT with multilingual pretrained models: direct, pivot, synthetic data, LoRA"
+requires-python = ">=3.10"
+# Exact versions used for the reported runs are in requirements.lock and outputs/env.jsonl.
+dependencies = [
+  "torch",
+  # IndicTrans2 remote code imports transformers.onnx (removed in 5.x)
+  "transformers>=4.46,<5",
+  "tokenizers",
+  "sentencepiece",
+  "protobuf",
+  "sacrebleu",
+  "peft",
+  "accelerate",
+  "huggingface_hub",
+  "IndicTransToolkit",
+  "numpy",
+  "pyarrow",
+  "PyYAML",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+a2t = "a2t.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["online: needs network + HF login (deselect with -m 'not online')"]
